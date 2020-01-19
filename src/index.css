@@ -16,3 +16,8 @@ pre {
     white-space: normal;
     font-family: 'Source Code Pro', 'Roboto Mono', monospace;
 }
+
+* {
+	-webkit-tap-highlight-color: transparent;
+	tap-highlight-color: transparent;
+}
