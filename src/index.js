@@ -7,8 +7,3 @@ ReactDOM.render(
 	<App />,
 	document.getElementById('root')
 );
-
-/*
-	/ - index page
-	/track - track guessed
-*/

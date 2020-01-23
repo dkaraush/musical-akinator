@@ -68,7 +68,7 @@
 }
 
 .TextOrRecordInput > * {
-	transition: visibility 0s, opacity 0.2s ease-in-out;
+	transition: visibility 0.2s 0s, opacity 0.2s ease-in-out;
 }
 
 .TextOrRecordInput .mic,
@@ -78,7 +78,7 @@
 	top: 5px;
 	right: 5px;
 	bottom: 5px;
-	transition: visibility 0s, opacity 0.2s ease-in-out, right 0.2s ease-in-out;
+	transition: visibility 0.2s 0s, opacity 0.2s ease-in-out, right 0.2s ease-in-out;
 }
 .TextOrRecordInput.mic .mic,
 .TextOrRecordInput.text .close {
@@ -102,6 +102,10 @@
 	opacity: 0.75;
 	padding: 4px;
 }
+.TextOrRecordInput .button.hidden {
+	opacity: 0 !important;
+	visibility: hidden !important;
+}
 
 .TextOrRecordInput .send {
 	position: absolute;
@@ -110,7 +114,7 @@
 	top: 5px;
 	bottom: 5px;
 	right: -42px;
-	transition: visibility 0s, opacity 0.2s ease-in-out, right 0.2s ease-in-out;
+	transition: visibility 0.2s 0s, opacity 0.2s ease-in-out, right 0.2s ease-in-out;
 }
 .TextOrRecordInput.mic .send,
 .TextOrRecordInput.cansend .send {
@@ -123,4 +127,21 @@
 .TextOrRecordInput.mic .close,
 .TextOrRecordInput.cansend .close {
 	right: 42px;
+}
+
+.TextOrRecordInputWrapper .warning {
+	margin-bottom: 5px;
+}
+.TextOrRecordInputWrapper .warning svg {
+	fill: #E65100;
+	display: inline-block;
+	vertical-align: middle;
+}
+.TextOrRecordInputWrapper .warning p {
+	color: #E65100;
+	display: inline-block;
+	margin: 0;
+	margin-left: 5px;
+	vertical-align: middle;
+	margin-top: -2px;
 }
