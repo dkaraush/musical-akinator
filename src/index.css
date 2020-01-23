@@ -13,7 +13,7 @@ body, html {
 
 pre {
 	word-break: break-all;
-    white-space: normal;
+    white-space: pre-wrap;
     font-family: 'Source Code Pro', 'Roboto Mono', monospace;
 }
 

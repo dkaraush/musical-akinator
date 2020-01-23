@@ -1,0 +1,31 @@
+.media-link {
+	display: inline-block;
+	margin-right: 15px;
+	cursor: pointer;
+	filter: grayscale(1);
+	opacity: 0.75;
+	transition: opacity 0.05s ease-in-out, filter 0.05s ease-in-out;
+	width: 64px;
+	height: 48px;
+	position: relative;
+}
+.media-link.small {
+	width: 24px;
+	height: 24px;
+	margin: 0;
+	margin-left: 4px;
+}
+.media-link:hover {
+	opacity: 1;
+	filter: grayscale(0);
+}
+.media-link div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}

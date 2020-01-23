@@ -8,7 +8,7 @@ import { ReactComponent as WarnPic } from './warn.svg';
 import Button from '../Button/Button';
 import './TextOrRecordInput.css';
 
-const MAX_RECORD_LENGTH = 30; // 30 seconds
+const MAX_RECORD_LENGTH = 25; // 25 seconds (audd.io)
 
 
 // VERY simple linked list
@@ -84,6 +84,62 @@ class TextOrRecordInput extends React.Component {
 
 		canvas.width = root.clientWidth * window.devicePixelRatio;
 		canvas.height = root.clientHeight * window.devicePixelRatio;
+		this.renderCanvas(false);
+	}
+	renderCanvas(loop) {
+		let canvas = this.canvasRef.current;
+		if (canvas == null)
+			return;
+		let ctx = canvas.getContext('2d');
+
+		if (loop) {
+			if (!this.canvasRendering)
+				return;
+			requestAnimationFrame(this.renderCanvas.bind(this, loop));
+		}
+
+		let W = canvas.width,
+			H = canvas.height;
+
+		ctx.clearRect(0, 0, W, H);
+
+		let calculateCoordinates = (function (node, w, h) {
+			return {
+				x: (node.timestamp - this.recordingStart) / (MAX_RECORD_LENGTH * 1000) * w,
+				y: (1 - node.volume / this.volumeMax) * h
+			};
+		}).bind(this);
+
+		ctx.beginPath();
+		if (this.volumes == null) {
+			ctx.moveTo(0, H + 10);
+			ctx.lineTo(0, H/2);
+			ctx.lineTo((Date.now() - this.recordingStart) / (MAX_RECORD_LENGTH * 1000) * W, H/2);
+			ctx.lineTo((Date.now() - this.recordingStart) / (MAX_RECORD_LENGTH * 1000) * W, H + 10);
+		} else {
+			let node = this.volumes.tail, first = null, last = null;
+			while (node != null) {
+				let coordinates = calculateCoordinates(node, W, H);
+				if (first == null)
+					first = coordinates;
+				ctx.lineTo(coordinates.x, coordinates.y);
+				last = coordinates;
+				node = node.next;
+			}
+			if (first != null && last != null) {
+				ctx.lineTo(0, last.y);
+				ctx.lineTo(0, H + 10);
+				ctx.lineTo(first.x, H + 10);
+			}
+		}
+		ctx.closePath();
+
+		ctx.lineWidth = window.devicePixelRatio * 1.5;
+		ctx.lineCap = 'round';
+		ctx.strokeStyle = '#1976d2';
+		ctx.fillStyle = '#90caf9';
+		ctx.stroke();
+		ctx.fill();
 	}
 
 	onMicClick() {
@@ -176,58 +232,7 @@ class TextOrRecordInput extends React.Component {
 	}
 	startCanvasRendering() {
 		this.canvasRendering = true;
-
-		let canvas = this.canvasRef.current;
-		let ctx = canvas.getContext('2d');
-		let render = () => {
-			if (!this.canvasRendering)
-				return;
-			requestAnimationFrame(render.bind(this));
-
-			let W = canvas.width,
-				H = canvas.height;
-
-			ctx.clearRect(0, 0, W, H);
-
-			let calculateCoordinates = (function (node, w, h) {
-				return {
-					x: (node.timestamp - this.recordingStart) / (MAX_RECORD_LENGTH * 1000) * w,
-					y: (1 - node.volume / this.volumeMax) * h
-				};
-			}).bind(this);
-
-			ctx.beginPath();
-			if (this.volumes == null) {
-				ctx.moveTo(0, H + 10);
-				ctx.lineTo(0, H/2);
-				ctx.lineTo((Date.now() - this.recordingStart) / (MAX_RECORD_LENGTH * 1000) * W, H/2);
-				ctx.lineTo((Date.now() - this.recordingStart) / (MAX_RECORD_LENGTH * 1000) * W, H + 10);
-			} else {
-				let node = this.volumes.tail, first = null, last = null;
-				while (node != null) {
-					let coordinates = calculateCoordinates(node, W, H);
-					if (first == null)
-						first = coordinates;
-					ctx.lineTo(coordinates.x, coordinates.y);
-					last = coordinates;
-					node = node.next;
-				}
-				if (first != null && last != null) {
-					ctx.lineTo(0, last.y);
-					ctx.lineTo(0, H + 10);
-					ctx.lineTo(first.x, H + 10);
-				}
-			}
-			ctx.closePath();
-
-			ctx.lineWidth = window.devicePixelRatio * 1.5;
-			ctx.lineCap = 'round';
-			ctx.strokeStyle = '#1976d2';
-			ctx.fillStyle = '#90caf9';
-			ctx.stroke();
-			ctx.fill();
-		}
-		render();
+		this.renderCanvas(true);
 	}
 	stopCanvasRendering() {
 		this.canvasRendering = false;

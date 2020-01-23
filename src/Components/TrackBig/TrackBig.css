@@ -1,0 +1,97 @@
+.track-big {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+.track-big .cover-wrapper {
+	max-width: 200px;
+
+	width: 35%;
+}
+.track-big .cover {
+	border-radius: 2px;
+	overflow: hidden;
+	background: #E0E0E0;
+	box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+	width: 100%;
+	padding-top: 100%;
+	position: relative;
+}
+.track-big .cover img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+.track-big .cover .bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+.track-big .cover .bg svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 25%;
+	height: 25%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.track-big .info {
+	width: 100%;
+	box-sizing: border-box;
+	padding-left: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+.track-big .info h1 {
+	margin: 0;
+	font-size: 25px;
+}
+.track-big .info h2 {
+	margin: 0;
+	opacity: 0.5;
+	font-size: 20px;
+}
+
+.track-big .info .meta {
+	flex-grow: 1;
+}
+.track-big .info .media {
+	flex-grow: 1;
+	padding-top: 5px;
+}
+.track-big .info .media span {
+	height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.track-wrapper .lyrics {
+	padding: 10px 0;
+}
+.track-wrapper .lyrics span.header {
+	opacity: 0.5;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.track-wrapper .lyrics span {
+	white-space: pre-line;
+    display: block;
+    word-break: break-word;
+}
+span.highlight {
+	background: yellow;
+	display: inline-block !important;
+}

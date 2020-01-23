@@ -1,0 +1,21 @@
+.loading {
+	display: block;
+	margin: 10px auto;
+	width: 20px !important;
+	height: 20px !important;
+	border-width: 4px;
+	border-color: rgba(0,0,0,0.1);
+	border-top-color: rgba(0,0,0,0.4);
+    border-style: solid;
+    border-radius: 50%;
+    transform: rotate(0deg);
+    animation: loading-rotating 0.5s infinite linear;
+}
+.loading.inline {
+	display: inline-block;
+}
+@keyframes loading-rotating {
+	0%   {transform: rotate(0deg);}
+	50%  {transform: rotate(180deg);}
+	100% {transform: rotate(360deg);}
+}

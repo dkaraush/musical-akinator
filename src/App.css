@@ -5,19 +5,25 @@
 }
 #container {
 	display: block;
-	max-width: 700px;
+	max-width: 800px;
 	margin: 0 auto;
 	padding: 5%;
 	box-sizing: border-box;
 }
 
+#header {
+	min-height: 40px;
+}
 #header h1 {
 	margin: 0;
+	display: inline-block;
 	transition: font-size 0.2s ease-in-out;
-	font-size: 40px;
+	font-size: 20px;
+	vertical-align: bottom;
+	line-height: 50px;
 }
-body.index #header h1 {
-	font-size: 35px;
+#header.index h1 {
+	font-size: 40px;
 }
 div.transition-group {
 	position: relative;
@@ -41,13 +47,4 @@ section.route-section {
 .fade-exit.fade-exit-active {
 	opacity: 0;
 	transition: opacity 0.15s ease-in;
-}
-
-@keyframes fade-in {
-	0% {opacity: 0;}
-	100% {opacity: 1;}
-}
-@keyframes fade-out {
-	0% {opacity: 1;}
-	100% {opacity: 0;}
 }
