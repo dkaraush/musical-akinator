@@ -72,7 +72,7 @@ export default function (props) {
 	let track = props.data || props.track;
 	let q = props.q || null;
 
-	let medias = track.media.map(social => {
+	let medias = (track.media || []).map(social => {
 		return <MediaLink href={social.url||social.uri} social={social.provider} size="big" />
 	});
 
