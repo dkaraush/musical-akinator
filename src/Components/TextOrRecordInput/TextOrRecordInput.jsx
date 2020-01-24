@@ -35,7 +35,9 @@ class TextOrRecordInput extends React.Component {
 
 		this.canvasRendering = false;
 
-		this.audioSupported = typeof MediaRecorder !== 'undefined';
+		this.audioSupported = typeof MediaRecorder !== 'undefined' && 
+			(!!navigator.getUserMedia || 
+				(navigator.mediaDevices && !!navigator.mediaDevices.getUserMedia));
 
 		this.context = null;
 		this.stream = null;
@@ -102,6 +104,8 @@ class TextOrRecordInput extends React.Component {
 			H = canvas.height;
 
 		ctx.clearRect(0, 0, W, H);
+		if (this.recordingStart === null)
+			return;
 
 		let calculateCoordinates = (function (node, w, h) {
 			return {
@@ -144,7 +148,13 @@ class TextOrRecordInput extends React.Component {
 
 	onMicClick() {
 		this.setState({type: 'mic'});
-		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		let getUserMedia = (window.navigator.mediaDevices ? window.navigator.mediaDevices.getUserMedia : null) || window.navigator.getUserMedia;
+		if (!getUserMedia) {
+			this.micError('getUserMedia() is not accessible');
+			return;
+		}
+
+		window.navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       		.then((stream) => {
       			this.stream = stream;
 
@@ -153,11 +163,7 @@ class TextOrRecordInput extends React.Component {
 									|| false;
 
 				if (!this.audioSupported) {
-					this.setState({
-	      				statusClass: 'error',
-	      				status: 'Your browser doesn\'t support audio recording'
-	      			});
-	      			this.stream = null;
+					this.micError('Your browser doesn\'t support audio recording');
 	      			return;
 				}
 
@@ -208,7 +214,6 @@ class TextOrRecordInput extends React.Component {
 						if (volume > this.volumeMax)
 							this.volumeMax = volume;
 						this.volumes.push({timestamp: Date.now(), volume: volume});
-						// this.renderCanvas();
 
 						this.statusRef.current.innerHTML = this.durationString(Date.now() - this.recordingStart);
 					};
@@ -223,18 +228,25 @@ class TextOrRecordInput extends React.Component {
 				this.startCanvasRendering();
       		})
       		.catch((err) => {
-      			console.error(err);
-      			this.setState({
-      				statusClass: 'error',
-      				status: 'Failed to access microphone: ' + (err+'')
-      			})
+      			this.micError(err);
       		})
+	}
+	micError(err) {
+		this.setState({
+			statusClass: 'error',
+			status: 'Failed to access microphone: ' + (err+'')
+		});
+		this.recordingStart = null;
+		this.renderCanvas(false);
+		this.stream = null;
 	}
 	startCanvasRendering() {
 		this.canvasRendering = true;
 		this.renderCanvas(true);
 	}
 	stopCanvasRendering() {
+		if (!this.canvasRendering)
+			this.renderCanvas(false); // render last time
 		this.canvasRendering = false;
 	}
 
@@ -325,6 +337,15 @@ class TextOrRecordInput extends React.Component {
 		});
 	}
 
+	warnText() {
+		if ( !window.navigator.getUserMedia && 
+			 (!window.navigator.mediaDevices ||
+			 !window.navigator.mediaDevices.getUserMedia) &&
+			 window.location.protocol === 'http:')
+			return "Can't access microphone through http:// protocol (use https)";
+		return "Your browser doesn't support microphone recording.";
+	}
+
 	render() {
 		return (
 			<div className="TextOrRecordInputWrapper">
@@ -332,7 +353,7 @@ class TextOrRecordInput extends React.Component {
 					!this.audioSupported ?
 					<div className="warning">
 						<WarnPic />
-						<p>Your browser doesn't support microphone recording.</p>
+						<p>{this.warnText()}</p>
 					</div> : null
 				}
 				<div className={classes({

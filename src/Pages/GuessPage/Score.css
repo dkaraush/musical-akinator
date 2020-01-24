@@ -1,0 +1,28 @@
+.score {
+	text-align: center;
+	padding: 5px 0;
+}
+.score > div {
+	display: inline-block;
+	vertical-align: bottom;
+}
+.score .value,
+.score .separator {
+	font-weight: bold;
+	font-size: 35px;
+}
+.score .player {
+	text-align: center;
+	position: relative;
+	min-width: 80px;
+	display: inline-block;
+}
+.score .player > * {
+	display: block;
+}
+.score .separator {
+	padding: 0 5px;
+}
+.score .name {
+	opacity: 0.6;
+}

@@ -7,14 +7,13 @@
 
 .track-big .cover-wrapper {
 	max-width: 200px;
-
 	width: 35%;
 }
 .track-big .cover {
 	border-radius: 2px;
 	overflow: hidden;
 	background: #E0E0E0;
-	box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 	width: 100%;
 	padding-top: 100%;
 	position: relative;
@@ -27,6 +26,18 @@
 	bottom: 0;
 	width: 100%;
 	height: 100%;
+}
+.track-big .cover .cover-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 .track-big .cover .bg {
 	position: absolute;
@@ -70,9 +81,6 @@
 .track-big .info .media {
 	flex-grow: 1;
 	padding-top: 5px;
-}
-.track-big .info .media span {
-	height: 100%;
     display: flex;
     flex-direction: row;
     align-items: flex-end;

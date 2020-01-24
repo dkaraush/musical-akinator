@@ -4,6 +4,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Switch, Route, Link, withRouter } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import Button from './Components/Button/Button';
+
+import { ReactComponent as BackPic } from "./back.svg";
+
 import IndexPage from './Pages/IndexPage/IndexPage';
 import GuessPage from './Pages/GuessPage/GuessPage';
 import _404Page from './Pages/404Page/404Page';
@@ -52,9 +56,15 @@ export default function () {
 	return (
 		<div id="container">
 			<Router>
-				<div id="header" className={window.location.pathname == '/' ? 'index' : ''}>
+				<Link 
+					id="header" 
+					className={window.location.pathname == '/' ? 'index' : ''}
+					to="/">
+					<Button round className="borderless" to="/">
+						<BackPic />
+					</Button>
 					<h1>Musical Akinator</h1>
-				</div>
+				</Link>
 				<ContentComponent />
 			</Router>
 		</div>

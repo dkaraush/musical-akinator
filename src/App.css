@@ -13,17 +13,52 @@
 
 #header {
 	min-height: 40px;
+	color: #000000;
+	text-decoration: none;
+	vertical-align: top;
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	padding-bottom: 10px;
+}
+#header .button {
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	margin-right: 5px;
+	border-radius: 50%;
+	margin-left: 0;
+	opacity: 1;
+	transition: opacity 0.2s ease-in-out, margin-left 0.2s ease-in-out;
+}
+#header.index .button {
+	opacity: 0;
+	margin-left: -53px;
+}
+#header .button svg {
+	width: 65%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
 }
 #header h1 {
 	margin: 0;
 	display: inline-block;
-	transition: font-size 0.2s ease-in-out;
-	font-size: 20px;
-	vertical-align: bottom;
-	line-height: 50px;
+	transition: font-size 0.2s ease-in-out, left 0.2s ease-in-out, top 0.2s ease-in-out;
+	font-size: 30px;
+	position: absolute;
+	left: 53px;
+	right: 0;
+	top: 6px;
+}
+#header > * {
+	vertical-align: middle;
 }
 #header.index h1 {
 	font-size: 40px;
+	left: 0;
+	top: 0;
 }
 div.transition-group {
 	position: relative;
@@ -47,4 +82,7 @@ section.route-section {
 .fade-exit.fade-exit-active {
 	opacity: 0;
 	transition: opacity 0.15s ease-in;
+}
+p.center {
+	text-align: center;
 }

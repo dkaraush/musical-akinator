@@ -1,0 +1,36 @@
+.voting {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	height: 160px;
+	margin-bottom: 20px;
+}
+.voting > * {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	z-index: 1;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0.2s 0s linear, opacity 0.2s ease-in-out;
+}
+.voting.voted > div:nth-child(2),
+.voting > div:nth-child(1) {
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1;
+}
+.voting.voted > div:nth-child(1),
+.voting > div:nth-child(2) {
+	visibility: visible;
+	opacity: 1;
+	z-index: 10;
+}
+.voting > div:nth-child(2) {
+	text-align: center;
+}
+.buttons > * {
+	margin: 0 5px;
+}

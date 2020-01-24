@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ReactComponent as MusicPic } from './music.svg';
 import MediaLink from '../MediaLink/MediaLink';
-import Widget from "../Widget/Widget";
+import Widgets from "../Widgets/Widgets";
 
 import './TrackBig.css';
 
@@ -23,7 +23,6 @@ function highlightText(text, q) {
 		wordId = -1;
 		for (let i = 0; i < words.length; ++i) {
 			let index = lowercaseText.indexOf(words[i], x);
-			console.log(index, words[i], lowercaseText.substring(x))
 			if (index == -1)
 				continue;
 			if (minIndex > index || minIndex == -1) {
@@ -54,13 +53,13 @@ function highlightText(text, q) {
 
 	let arr = [];
 	x = 0;
-	for (let i = 0; i < highlights.length; ++i) {
+	for (let i = 0, j = 0; i < highlights.length; ++i) {
 		let h = highlights[i];
 		if (h[0] > x) {
 			arr.push(text.substring(x, h[0]));
 			x = h[0];
 		}
-		arr.push(<span className="highlight">{text.substring(h[0], h[1])}</span>);
+		arr.push(<span className="highlight" key={++j}>{text.substring(h[0], h[1])}</span>);
 		x = h[1];
 	}
 	if (x < text.length)
@@ -73,7 +72,11 @@ export default function (props) {
 	let q = props.q || null;
 
 	let medias = (track.media || []).map(social => {
-		return <MediaLink href={social.url||social.uri} social={social.provider} size="big" />
+		return <MediaLink 
+					href={social.url||social.uri}
+					social={social.provider}
+					key={social.provider}
+					size="big" />
 	});
 
 	return (
@@ -84,7 +87,7 @@ export default function (props) {
 						<div className="bg">
 							<MusicPic />
 						</div>
-						{track.cover ? <img src={track.cover} /> : null}
+						{track.cover ? <div className="cover-img" style={{backgroundImage: 'url('+track.cover+')'}} /> : null}
 					</div>
 				</div>
 				<div className="info">
@@ -99,7 +102,7 @@ export default function (props) {
 					</div>
 				</div>
 			</div>
-			<Widget track={track} />
+			<Widgets track={track} />
 			{ track.lyrics !== null ?
 				<div className="lyrics">
 					<span className="header">Lyrics</span>
