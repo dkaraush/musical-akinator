@@ -334,11 +334,12 @@ APIController.path = {
 	}
 };
 
-let api;
-if (Storage.get('backend'))
+let api, apitype = process.env.REACT_APP_API_TYPE;
+
+if (Storage.get('backend') || apitype === 'backend')
 	api = new APIController('backend');
 else
-	api = new APIController(process.env.REACT_APP_API_TYPE, {
+	api = new APIController('direct', {
 		audd_token: process.env.REACT_APP_AUDD_TOKEN,
 		genius_token: process.env.REACT_APP_GENIUS_TOKEN
 	});
