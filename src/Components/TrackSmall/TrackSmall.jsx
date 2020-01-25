@@ -7,7 +7,7 @@ import './TrackSmall.css';
 export default function (props) {
 	let track = props.track || props.data || {};
 
-	let medias = (track.media || []).sort().map(social => {
+	let medias = (track.media || []).filter(x => x.provider !== 'apple_music').sort().map(social => {
 		return <MediaLink 
 					href={social.url||social.uri}
 					social={social.provider}
