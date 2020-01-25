@@ -29,8 +29,13 @@ function updCache() {
 }
 const escapeCORS = 'https://cors-anywhere.herokuapp.com/';
 function httpCache(method, url, before, callback, isCORS) {
+	if (arguments.length === 3) {
+		callback = before;
+		before = undefined;
+	}
+
 	let k = crc32(method + ' ' + url).toString(16);
-	if (cache[k] && !before) {
+	if (cache[k] && typeof cache[k].r !== 'undefined' && cache[k].r !== null && !before) {
 		callback(true, cache[k].r);
 		return;
 	}
@@ -133,7 +138,7 @@ class APIController {
 				})
 			};
 
-			if (obj.status !== 'error' && obj.result !== null) {
+			if (obj && obj.status !== 'error' && obj.result !== null) {
 				let track = obj.result.list ? obj.result.list[0] : obj.result[0];
 				if (typeof track === 'undefined' || track === null) {
 					response(null);
@@ -246,7 +251,6 @@ class APIController {
 
 	sendAnswer(bool) {
 		return new Promise((resolve, reject) => {
-			console.log('asdasdas')
 			if (this.type === 'backend') {
 				http('POST', 
 					 this.endpoint() +
@@ -275,6 +279,8 @@ class APIController {
 					reject(data);
 					return;
 				}
+
+				console.log("<= ", data);
 
 				if (this.type === 'direct') {
 					this.simulateAPIServerResponse(data)

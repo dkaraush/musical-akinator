@@ -35,6 +35,7 @@ const widgets = {
 	'soundcloud': (media) => {
 		return <iframe
 					key="soundcloud"
+					className="soundcloud-widget"
 					width="100%"
 					height="166"
 					scrolling="no"
@@ -46,6 +47,7 @@ const widgets = {
 	'spotify': (media) => {
 		return <iframe
 					key="spotify"
+					className="spotify-widget"
 					width="100%"
 					height="300"
 					scrolling="no"

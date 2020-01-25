@@ -1,0 +1,74 @@
+.track-small {
+	display: flex;
+	height: 48px;
+	width: 100%;
+	flex-direction: flex-start;
+	margin-bottom: 5px;
+}
+.track-small .cover {
+	min-width: 48px;
+	width: 48px;
+	height: 48px;
+	border-radius: 3px;
+	position: relative;
+	overflow: hidden;
+	background: #E0E0E0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	flex-shrink: 0;
+}
+.track-small .cover svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 40%;
+	height: 40%;
+	transform: translateX(-50%) translateY(-50%);
+}
+.track-small .cover .img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.track-small .info {
+	padding-left: 5px;
+	vertical-align: top;
+	overflow: hidden;
+}
+.track-small .info span {
+	width: 100%;
+	display: inline-block;
+}
+.track-small .info h1, 
+.track-small .info h2 {
+	display: block;
+	width: 100%;
+	margin: 0;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.track-small .info h1 {
+	font-size: 20px;
+}
+.track-small .info h2 {
+	font-size: 15px;
+	opacity: 0.5;
+}
+.track-small .media {
+	flex-grow: 1;
+	flex-shrink: 0;
+	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.track-small .media > span {
+	display: inline-block;
+}

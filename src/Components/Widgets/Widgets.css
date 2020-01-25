@@ -3,6 +3,8 @@
 	width: 100%;
 	min-height: 360px;
 }
-.deezer-widget {
+.deezer-widget,
+.soundcloud-widget,
+.spotify-widget {
 	margin: 10px 0;
 }

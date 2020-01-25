@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ReactComponent as MusicPic } from './music.svg';
+import { ReactComponent as MusicPic } from '../../CommonAssets/music.svg';
 import MediaLink from '../MediaLink/MediaLink';
 import Widgets from "../Widgets/Widgets";
 
@@ -103,7 +103,7 @@ export default function (props) {
 				</div>
 			</div>
 			<Widgets track={track} />
-			{ track.lyrics !== null ?
+			{ track.lyrics !== null && typeof track.lyrics !== 'undefined' && track.lyrics.length > 0 ?
 				<div className="lyrics">
 					<span className="header">Lyrics</span>
 					<span>{highlightText(track.lyrics, q)}</span>

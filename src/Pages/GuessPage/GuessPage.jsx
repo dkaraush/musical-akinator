@@ -6,9 +6,11 @@ import TextOrRecordInput from '../../Components/TextOrRecordInput/TextOrRecordIn
 import Loading from '../../Components/Loading/Loading';
 import Button from '../../Components/Button/Button';
 import TrackBig from '../../Components/TrackBig/TrackBig';
+import TrackSmall from '../../Components/TrackSmall/TrackSmall';
 import Score from './Score';
 
 import API from '../../Controllers/APIController';
+import LastTracks from '../../Controllers/LastTracks';
 
 import './GuessPage.css';
 
@@ -34,6 +36,9 @@ class GuessPage extends React.Component {
 
 		if (!this.state.loaded && input)
 			this.init(false, input);
+
+
+		this.lastTracks = LastTracks.getData();
 	}
 
 	componentDidMount() {
@@ -41,17 +46,17 @@ class GuessPage extends React.Component {
 	}
 
 	_setState(mounted, newState) {
-		console.log('pushState(', newState, ')', '\n', new Error().stack.split('\n').slice(1).join('\n'))
+		// console.log('pushState(', newState, ')', '\n', new Error().stack.split('\n').slice(1).join('\n'))
 		if (mounted)
 			this.setState(newState||{});
 		else this.state = Object.assign(this.state||{}, newState||{});
-		console.log('state = ', this.state);
+		// console.log('state = ', this.state);
 
 		let toSave = Object.assign({}, Object.assign(this.state||{}, newState||{}));
 		if (toSave)
 			delete toSave.input;
 		Storage.set('guess-state', toSave);
-		console.log('toSave: ', toSave);
+		// console.log('toSave: ', toSave);
 	}
 
 	init(newRequest, input) {
@@ -65,6 +70,7 @@ class GuessPage extends React.Component {
 
 		API.send(input)
 		   .then((res) => {
+				this.lastTracks = LastTracks.getData();
 		   		if (res.result == null) {
 		   			this.vote(false, true);
 		   			this.pushState({voted: true});
@@ -87,6 +93,9 @@ class GuessPage extends React.Component {
 		if (!strict && this.state.voted)
 			return;
 
+		if (bool)
+			LastTracks.push(this.state.track);
+
 		this.pushState({voted: true});
 		API.sendAnswer(bool)
 		    .then((newScore) => {
@@ -105,7 +114,7 @@ class GuessPage extends React.Component {
 					<p className="center">Searching your track...</p>
 					<Loading />
 				   </div>;
-
+		console.log(LastTracks)
 		return (
 			<div>
 				<div className={"voting" + (this.state.voted || !this.state.track ? ' voted' : '')}>
@@ -123,11 +132,20 @@ class GuessPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				{this.state.track ? 
-					<TrackBig data={this.state.track} q={this.state.q} /> :
+				{!this.state.track ? 
 					<div>
 						<p className="center">Unfortunately, we didn't find any track. You won this round.</p>
-					</div>
+					</div> : null
+				}
+				<div className={"last" + (this.state.voted && this.state.loaded && this.lastTracks.length > 0 ? ' visible' : '')}>
+					<p><b>Last correctly guessed tracks:</b></p>
+					{this.state.voted && this.state.loaded ? 
+						this.lastTracks.map((track, i) => <TrackSmall track={track} key={i} /> )
+						: null
+					}
+				</div>
+				{this.state.track ? 
+					<TrackBig track={this.state.track} q={this.state.q} /> : null
 				}
 			</div>
 		);

@@ -353,7 +353,7 @@ class TextOrRecordInput extends React.Component {
 					!this.audioSupported ?
 					<div className="warning">
 						<WarnPic />
-						<p>{this.warnText()}</p>
+						{this.warnText()}
 					</div> : null
 				}
 				<div className={classes({

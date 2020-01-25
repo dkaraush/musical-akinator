@@ -23,6 +23,8 @@
 	background: transparent;
 	opacity: 1;
 	visibility: visible;
+	margin: 0;
+	padding: 0;
 }
 .TextOrRecordInput .input-wrapper {
 	position: absolute;
@@ -130,18 +132,12 @@
 }
 
 .TextOrRecordInputWrapper .warning {
+	color: #E65100;
 	margin-bottom: 5px;
 }
 .TextOrRecordInputWrapper .warning svg {
 	fill: #E65100;
 	display: inline-block;
 	vertical-align: middle;
-}
-.TextOrRecordInputWrapper .warning p {
-	color: #E65100;
-	display: inline-block;
-	margin: 0;
-	margin-left: 5px;
-	vertical-align: middle;
-	margin-top: -2px;
+	margin: 0 4px 4px 0;
 }

@@ -2,8 +2,8 @@
 	position: relative;
 	width: 100%;
 	display: inline-block;
-	height: 160px;
-	margin-bottom: 20px;
+	height: 220px;
+    margin-top: 20px;
 }
 .voting > * {
 	position: absolute;
@@ -33,4 +33,15 @@
 }
 .buttons > * {
 	margin: 0 5px;
+}
+
+.last {
+	max-height: 0;
+	opacity: 0;
+	transition: max-height 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    padding: 10px 0;
+}
+.last.visible {
+	max-height: 100vh;
+	opacity: 1;
 }
