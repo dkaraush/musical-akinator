@@ -47,7 +47,7 @@ class IndexPage extends React.Component {
 				<p>Made by:</p>
 				<ul>
 					<li><b><a className="dev" href="https://dkaraush.me">Dmitriy Karaush</a></b> — <a href="https://github.com/dkaraush/musical-akinator">frontend</a> made with React.</li>
-					<li><b><a className="dev" href="https://t.me/thejunglegiant">Oleksii Morozov</a></b> — <a href="https://github.com/thejunglegiant/backend-akinator">backend</a>.</li>
+					<li><b><a className="dev" href="https://t.me/thejunglegiant">Oleksii Morozov</a></b> — <a href="https://github.com/thejunglegiant/backend-musical-akinator">backend</a>.</li>
 				</ul>
 			</div>
 		);	
