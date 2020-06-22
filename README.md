@@ -3,6 +3,7 @@
 Made by [@dkaraush](https://dkaraush.me) with React, special for [int20h](https://int20h.best-kyiv.org/) hackathon.
 
 Now it should be hosted at [https://muz.dkaraush.me/](https://muz.dkaraush.me/), using GitHub Pages.
+(Doesn't work due to expired token :/. It should be paid, but I don't really want to.)
 
 ## Theory
 
